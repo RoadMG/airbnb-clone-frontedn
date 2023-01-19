@@ -1,8 +1,10 @@
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
+import Cookie from "js-cookie";
 
 const instance = axios.create({
   baseURL: "http://localhost:8000/api/v1",
+  withCredentials: true,
 });
 
 export const getRooms = () =>
@@ -12,3 +14,38 @@ export const getRoomDetail = ({ queryKey }: QueryFunctionContext) => {
   const [_, roomPk] = queryKey;
   return instance.get(`rooms/${roomPk}`).then((response) => response.data);
 };
+
+export const getRoomReviews = ({ queryKey }: QueryFunctionContext) => {
+  const [_, roomPk] = queryKey;
+  return instance
+    .get(`rooms/${roomPk}/reviews`)
+    .then((response) => response.data);
+};
+
+export const getMe = () =>
+  instance.get(`users/me`).then((response) => response.data);
+
+export const logOut = () =>
+  instance
+    .post(`users/log-out`, null, {
+      headers: { "X-CSRFToken": Cookie.get("csrftoken") || "" },
+    })
+    .then((response) => response.data);
+
+export const githubLogIn = (code: string) =>
+  instance
+    .post(
+      `/users/github`,
+      { code },
+      { headers: { "X-CSRFToken": Cookie.get("csrftoken") || "" } }
+    )
+    .then((response) => response.status);
+
+export const kakaoLogin = (code: string) =>
+  instance
+    .post(
+      `/users/kakako`,
+      { code },
+      { headers: { "X-CSRFToken": Cookie.get("csrftoken") || "" } }
+    )
+    .then((response) => response.status);
