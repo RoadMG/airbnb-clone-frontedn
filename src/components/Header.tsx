@@ -19,6 +19,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
 import { FaAirbnb, FaMoon, FaSun } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 import { logOut } from "../api";
 import useUser from "../lib/useUser";
@@ -108,6 +109,11 @@ const Header = () => {
                 <Avatar name={user?.name} src={user?.avatar} size={"md"} />
               </MenuButton>
               <MenuList>
+                {user?.is_host ? (
+                  <Link to="/rooms/upload">
+                    <MenuItem>Upload room</MenuItem>
+                  </Link>
+                ) : null}
                 <MenuItem onClick={onLogOut}>Logout</MenuItem>
               </MenuList>
             </Menu>

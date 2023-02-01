@@ -19,12 +19,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
 import { FaLock, FaUser } from "react-icons/fa";
-import {
-  IUsernameLoginError,
-  IUsernameLoginSuccess,
-  IUsernameLoginVariables,
-  usernameLogIn,
-} from "../api";
+import { usernameLogIn } from "../api";
 import SocialLogin from "./SocialLogin";
 
 interface LoginModalProps {
