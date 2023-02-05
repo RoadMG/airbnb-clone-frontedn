@@ -48,6 +48,7 @@ const Home = () => {
           city={room.city}
           country={room.country}
           price={room.price}
+          isOwner={room.is_owner}
         />
       ))}
     </Grid>
