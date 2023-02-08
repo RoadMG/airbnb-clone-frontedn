@@ -4,7 +4,10 @@ import Cookie from "js-cookie";
 import { formatDate } from "./lib/utils";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8000/api/v1/",
+  baseURL:
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:8000/api/v1/"
+      : "https://airbnbclone-4tef.onrender.com/api/v1",
   withCredentials: true,
 });
 
